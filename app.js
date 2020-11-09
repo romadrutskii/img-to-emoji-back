@@ -6,15 +6,15 @@ const jpeg = require('jpeg-js')
 const cors = require('cors')
 const tf = require('@tensorflow/tfjs-node')
 const mobilenet = require('@tensorflow-models/mobilenet')
-// const name = require('emoji-name-map')
 const emojiFromText = require('emoji-from-text')
-
+const http = require('http')
 
 const app = express()
 app.use(cors())
 
-const port = process.env.PORT || 3001
+const server = http.createServer(app)
 
+const port = process.env.PORT || 3001
 
 const handleError = (err, res) => {
   res
@@ -71,12 +71,7 @@ const descBy = (property) => {
   return (a, b) => (a[property] < b[property]) ? 1 : -1
 }
 
-
 const NUMBER_OF_CHANNELS = 3
-
-// const obj = emojiFromText(`tabby cat`, true)
-// console.log(obj.match.emoji)
-
 
 app.post('/get-emoji',
     upload.single('image' /* name attribute of <file> element in your form */),
@@ -137,6 +132,4 @@ app.post('/get-emoji',
     },
 )
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://0.0.0.0:${port}`)
-})
+server.listen(port, () => console.log(`Example app listening at http://0.0.0.0:${port}`))
