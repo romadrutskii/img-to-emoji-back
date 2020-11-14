@@ -73,6 +73,10 @@ const descBy = (property) => {
 
 const NUMBER_OF_CHANNELS = 3
 
+app.get('/', (req, res) => {
+  res.send('The server is up!')
+})
+
 app.post('/get-emoji',
     upload.single('image' /* name attribute of <file> element in your form */),
     (req, res) => {
